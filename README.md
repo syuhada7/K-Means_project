@@ -1,2 +1,1 @@
-﻿# K-Means
-# K-Means_project
+﻿# K-Means_project

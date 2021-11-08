@@ -7,54 +7,95 @@
         </div>
         <div class="panel-body">
           <div class="form-group">
-            <label for="no_biling">No Transaksi</label>
-            <input type="text" name="no_biling" class="form-control" value="<?= $biling; ?>" readonly>
-          </div>
-          <div class="form-group">
-            <label for="item">Jenis Item</label>
-            <select class="form-control" data-live-search="true" name="item" data-size="5">
-              <option>- Pilih Item -</option>
-              <?php foreach ($item->result() as $r_item) : ?>
-                <option value="<?= $r_item->id_item; ?>"><?= $r_item->nama_item; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="kapal">Nama Kapal</label>
-            <select class="form-control" data-live-search="true" name="kapal" data-size="5">
-              <option>- Pilih Kapal -</option>
-              <?php foreach ($kapal->result() as $r_kapal) : ?>
-                <option value="<?= $r_kapal->id_kapal; ?>"><?= $r_kapal->nama_kapal; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="tangkap">Jenis Penangkapan</label>
-            <select class="form-control" data-live-search="true" name="tangkap" data-size="5">
-              <option>- Pilih Penagkapan -</option>
-              <?php foreach ($tangkap->result() as $r_tangkap) : ?>
-                <option value="<?= $r_tangkap->id_catch; ?>"><?= $r_tangkap->nama_catch; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="qty">Initial Stock</label>
-            <input type="number" name="qty" id="qty" class="form-control" readonly>
-            <label for="qty">Qty Out</label>
-            <input type="number" name="qty2" id="qty2" class="form-control">
-          </div>
-          <div class="form-group">
-            <label>Tanggal Transaksi</label>
-            <div class="form-group">
-              <input type="date" class="form-control" name="tanggal">
+            <div class="col-lg">
+              <label for="no_biling">No Transaksi</label>
+              <input type="text" name="no_biling" class="form-control" value="<?= $biling; ?>" readonly>
+            </div>
+            <div class="col-lg">
+              <label for="barcode">Filter Item *</label>
+              <div class="form-group input-group">
+                <input type="hidden" name="id_transaksi" id="id_transaksi">
+                <input type="text" name="nama_item" id="nama_item" class="form-control" required autofocus>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg">
+              <label for="kapal">Nama Kapal</label>
+              <input type="text" name="nama_kapal" id="nama_kapal" class="form-control" readonly>
+            </div>
+            <div class="col-lg">
+              <label for="tangkap">Jenis Penangkapan</label>
+              <input type="text" name="nama_catch" id="nama_catch" class="form-control" readonly>
+            </div>
+            <div class="col-lg">
+              <label for="qty">Initial Stock</label>
+              <input type="number" name="qty" id="qty" class="form-control" readonly>
+            </div>
+            <div class="col-lg">
+              <label for="qty">Qty Out</label>
+              <input type="number" name="qty2" id="qty2" class="form-control">
+            </div>
+            <div class="col-lg">
+              <label>Tanggal Transaksi</label>
+              <div class="form-group">
+                <input type="date" class="form-control" name="tanggal">
+              </div>
             </div>
           </div>
+          <div class="panel-footer">
+            <button type="just_submit" class="btn btn-danger" name="submit_data" style="border-radius: 0;">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit_data_and_close">Submit & Close</button>
+          </div>
         </div>
-        <div class="panel-footer">
-          <button type="just_submit" class="btn btn-danger" name="submit_data" style="border-radius: 0;">Submit</button>
-          <button type="submit" class="btn btn-primary" name="submit_data_and_close">Submit & Close</button>
-        </div>
-      </div>
     </form>
+  </div>
+</div>
+
+<!-- Modal Item-->
+<div class="modal fade" id="modal-item" tabindex="-1" role="dialog" aria-labelledby="modal-item" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-item">Select Item</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body table-responsive">
+        <table class="table table-bordered table-striped" id="transaksi">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nama Kapal</th>
+              <th>Nama Item</th>
+              <th>Jenis Penangkapan</th>
+              <th>Stock</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $no = 1;
+            foreach ($row as $i => $data) : ?>
+              <tr>
+                <td><?= $no++; ?></td>
+                <td><?= $data->vessel ?></td>
+                <td><?= $data->barang ?></td>
+                <td><?= $data->metode ?></td>
+                <td><?= $data->qty ?></td>
+                <td>
+                  <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->id_transaksi ?>" data-nama_item="<?= $data->barang ?>" data-nama_kapal="<?= $data->vessel ?>" data-nama_catch="<?= $data->metode ?>" data-qty="<?= $data->qty ?>">
+                    <i class="fa fa-check"></i> Select
+                  </button>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

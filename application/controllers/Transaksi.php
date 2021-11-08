@@ -33,10 +33,8 @@ class Transaksi extends CI_Controller
   public function outadd()
   {
     $data['title'] = 'Out Transaksi';
-    $data['row'] = $this->Transaksi_model->getAll();
-    $data['item'] = $this->Item_model->get();
-    $data['kapal'] = $this->Kapal_model->get();
-    $data['tangkap'] = $this->Tangkap_model->get();
+    $data['row'] = $this->Transaksi_model->getAll()->result();
+    $data['item'] = $this->Item_model->get()->result();
     $data['biling'] = $this->Transaksi_model->billing();
     $this->load->view('template/header', $data);
     $this->load->view('transaksi/out', $data);

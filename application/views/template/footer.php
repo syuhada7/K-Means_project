@@ -3,6 +3,24 @@
 </body>
 <script>
   $(document).ready(function() {
+    $(document).on('click', '#select', function() {
+      var id_transaksi = $(this).data('id_transaksi');
+      var nama_item = $(this).data('nama_item');
+      var nama_kapal = $(this).data('nama_kapal');
+      var nama_catch = $(this).data('nama_catch');
+      var qty = $(this).data('qty');
+      // -----
+      $('#id_transaksi').val(id_transaksi);
+      $('#nama_item').val(nama_item);
+      $('#nama_kapal').val(nama_kapal);
+      $('#nama_catch').val(nama_catch);
+      $('#qty').val(qty);
+      // $('#modal-item').modal('hide');
+    })
+  })
+</script>
+<script>
+  $(document).ready(function() {
     $('#btn-1').click(function() {
       $('#myModal').modal('show');
       $('#tambah').attr({

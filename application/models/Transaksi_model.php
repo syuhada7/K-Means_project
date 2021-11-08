@@ -47,10 +47,10 @@ class Transaksi_model extends CI_Model
   {
     $params = [
       'no_biling' => $post['no_biling'],
-      'id_item'   => $post['item'],
-      'id_kapal'  => $post['kapal'],
-      'id_catch'  => $post['tangkap'],
-      'qty'       => $post['qty'],
+      'id_item'   => $post['nama_item'],
+      'id_kapal'  => $post['nama_kapal'],
+      'id_catch'  => $post['nama_catch'],
+      'qty'       => $post['qty2'],
       'id_jenis'  => $post[2],
       'tanggal'   => $post['tanggal']
     ];

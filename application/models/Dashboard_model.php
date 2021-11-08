@@ -38,6 +38,37 @@ class Dashboard_model extends CI_Model
     }
   }
 
+  public function bulan1()
+  {
+    $this->db->select_sum('qty');
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 8");
+    if ($query->num_rows() > 0) {
+      return $query->row()->qty;
+    } else {
+      return 0;
+    }
+  }
+  public function bulan2()
+  {
+    $this->db->select_sum('qty');
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 9");
+    if ($query->num_rows() > 0) {
+      return $query->row()->qty;
+    } else {
+      return 0;
+    }
+  }
+  public function bulan3()
+  {
+    $this->db->select_sum('qty');
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 10");
+    if ($query->num_rows() > 0) {
+      return $query->row()->qty;
+    } else {
+      return 0;
+    }
+  }
+
   public function qty_alb()
   {
     $this->db->select_sum('qty');

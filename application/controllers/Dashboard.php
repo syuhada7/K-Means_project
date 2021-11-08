@@ -21,9 +21,13 @@ class Dashboard extends CI_Controller
     $this->load->view('auth/dashboard', $data);
     $this->load->view('template/footer_menu');
   }
-  
-  public function forecast(){
+
+  public function forecast()
+  {
     $data['title'] = 'Forecast';
+    $data['aug'] = $this->Dashboard_model->bulan1();
+    $data['sep'] = $this->Dashboard_model->bulan2();
+    $data['okt'] = $this->Dashboard_model->bulan3();
     $data['alb'] = $this->Dashboard_model->qty_alb();
     $data['alb2'] = $this->Dashboard_model->qty_alb2();
     $data['be'] = $this->Dashboard_model->qty_be();
@@ -38,7 +42,7 @@ class Dashboard extends CI_Controller
     $data['yf2'] = $this->Dashboard_model->qty_yf2();
     $data['yf3'] = $this->Dashboard_model->qty_yf3();
     $this->load->view('template/header', $data);
-    $this->load->view('auth/forecast');
+    $this->load->view('auth/forecast', $data);
     $this->load->view('template/footer_menu');
   }
 }

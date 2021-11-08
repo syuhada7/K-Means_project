@@ -8,7 +8,7 @@
         <div class="panel-body">
           <div class="form-group">
             <label for="no_biling">No Transaksi</label>
-            <input type="text" name="no_biling" class="form-control">
+            <input type="text" name="no_biling" class="form-control" value="<?= $biling; ?>" readonly>
           </div>
           <div class="form-group">
             <label for="item">Jenis Item</label>

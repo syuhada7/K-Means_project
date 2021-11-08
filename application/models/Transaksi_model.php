@@ -57,7 +57,7 @@ class Transaksi_model extends CI_Model
     $this->db->insert('transaksi', $params);
   }
 
-  public function edit($post)
+  public function inedit($post)
   {
     $params = [
       'id_transaksi' => $post['id'],
@@ -66,7 +66,7 @@ class Transaksi_model extends CI_Model
       'id_kapal'     => $post['kapal'],
       'id_catch'     => $post['tangkap'],
       'qty'          => $post['qty'],
-      'id_jenis'     => $post['jenis'],
+      'id_jenis'     => $post[1],
       'tanggal'      => $post['tanggal']
     ];
     $this->db->where('id_transaksi', $post['id']);
@@ -77,5 +77,22 @@ class Transaksi_model extends CI_Model
   {
     $this->db->where($where);
     $this->db->delete('transaksi');
+  }
+
+  public function billing()
+  {
+    $sql = "SELECT MAX(MID(no_biling,10,6)) as no_biling
+            FROM transaksi
+            WHERE MID(no_biling,4,6) = DATE_FORMAT(CURDATE(), '%y%m%d')";
+    $query = $this->db->query($sql);
+    if ($query->num_rows() > 0) {
+      $row = $query->row();
+      $n = ((int)$row->no_biling) + 1;
+      $no = sprintf("%'.04d", $n);
+    } else {
+      $no = "0001";
+    }
+    $no_billing = "PBN" . date('ymd') . $no;
+    return $no_billing;
   }
 }

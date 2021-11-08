@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4">
-    <form action="<?= base_url('transaksi/edit') ?>" method="POST">
+    <form action="<?= base_url('transaksi/inedit') ?>" method="POST">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4>Form Input Data Transaksi</h4>
@@ -59,20 +59,6 @@
           <div class="form-group">
             <label for="qty">Qty</label>
             <input type="number" name="qty" class="form-control" value="<?= $row->qty; ?>">
-          </div>
-          <div class="form-group">
-            <label for="jenis">Jenis Transaksi</label><br>
-            <?php
-            if ($row->id_jenis == 1) {
-            ?>
-              <label class="radio-inline"><input type="radio" name="jenis" value="1" checked>IN</label>
-              <label class="radio-inline"><input type="radio" name="jenis" value="2">OUT</label>
-            <?php
-            } else {
-            ?>
-              <label class="radio-inline"><input type="radio" name="jenis" value="1">IN</label>
-              <label class="radio-inline"><input type="radio" name="jenis" value="2" checked>OUT</label>
-            <?php } ?>
           </div>
           <div class="form-group">
             <label>Tanggal Transaksi</label>

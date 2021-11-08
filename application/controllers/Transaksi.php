@@ -6,10 +6,6 @@ class Transaksi extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    $this->load->model('Item_model');
-    $this->load->model('Kapal_model');
-    $this->load->model('Tangkap_model');
-    $this->load->model('Transaksi_model');
     $this->load->library('form_validation');
   }
 
@@ -41,6 +37,7 @@ class Transaksi extends CI_Controller
     $data['item'] = $this->Item_model->get();
     $data['kapal'] = $this->Kapal_model->get();
     $data['tangkap'] = $this->Tangkap_model->get();
+    $data['biling'] = $this->Transaksi_model->billing();
     $this->load->view('template/header', $data);
     $this->load->view('transaksi/out', $data);
     $this->load->view('template/footer');
@@ -48,13 +45,13 @@ class Transaksi extends CI_Controller
 
   public function ubah($id)
   {
-    $data['title'] = 'Update Transaksi';
     $query = $this->Transaksi_model->getAll($id);
     if ($query->num_rows() > 0) {
       $transaksi = $query->row();
       $data = array(
         'row' => $transaksi
       );
+      $data['title'] = 'Update Transaksi';
       $data['item'] = $this->Item_model->get();
       $data['kapal'] = $this->Kapal_model->get();
       $data['tangkap'] = $this->Tangkap_model->get();
@@ -100,11 +97,11 @@ class Transaksi extends CI_Controller
     }
   }
 
-  public function edit()
+  public function inedit()
   {
     $post = $this->input->post(null, TRUE);
     if (isset($_POST['submit_data'])) {
-      $this->Transaksi_model->edit($post);
+      $this->Transaksi_model->inedit($post);
       if ($this->db->affected_rows() > 0) {
         echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi') . "'</script>";
       }

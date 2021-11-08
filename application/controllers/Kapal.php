@@ -6,7 +6,6 @@ class Kapal extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    $this->load->model('Kapal_model');
   }
 
   public function index()

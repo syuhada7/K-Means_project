@@ -6,7 +6,6 @@ class Mining extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    // $this->load->model('Mining_model');
   }
 
   public function index()

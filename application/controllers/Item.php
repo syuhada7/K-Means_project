@@ -6,7 +6,6 @@ class Item extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    $this->load->model('Item_model');
   }
 
   public function index()

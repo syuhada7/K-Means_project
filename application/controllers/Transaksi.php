@@ -22,7 +22,7 @@ class Transaksi extends CI_Controller
     $this->load->view('template/footer');
   }
 
-  public function add()
+  public function inadd()
   {
     $data['title'] = 'Input Transaksi';
     $data['row'] = $this->Transaksi_model->getAll();
@@ -31,6 +31,18 @@ class Transaksi extends CI_Controller
     $data['tangkap'] = $this->Tangkap_model->get();
     $this->load->view('template/header', $data);
     $this->load->view('transaksi/add', $data);
+    $this->load->view('template/footer');
+  }
+
+  public function outadd()
+  {
+    $data['title'] = 'Out Transaksi';
+    $data['row'] = $this->Transaksi_model->getAll();
+    $data['item'] = $this->Item_model->get();
+    $data['kapal'] = $this->Kapal_model->get();
+    $data['tangkap'] = $this->Tangkap_model->get();
+    $this->load->view('template/header', $data);
+    $this->load->view('transaksi/out', $data);
     $this->load->view('template/footer');
   }
 
@@ -56,13 +68,31 @@ class Transaksi extends CI_Controller
   {
     $post = $this->input->post(null, TRUE);
     if (isset($_POST['submit_data'])) {
-      $this->Transaksi_model->add($post);
+      $this->Transaksi_model->outadd($post);
       if ($this->db->affected_rows() > 0) {
         echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi/add') . "'</script>";
       }
       redirect('Transaksi/add');
     } else if (isset($_POST['submit_data_and_close'])) {
-      $this->Transaksi_model->add($post);
+      $this->Transaksi_model->outadd($post);
+      if ($this->db->affected_rows() > 0) {
+        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi') . "'</script>";
+      }
+      redirect('Transaksi');
+    }
+  }
+
+  public function tambahout()
+  {
+    $post = $this->input->post(null, TRUE);
+    if (isset($_POST['submit_data'])) {
+      $this->Transaksi_model->inadd($post);
+      if ($this->db->affected_rows() > 0) {
+        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi/add') . "'</script>";
+      }
+      redirect('Transaksi/add');
+    } else if (isset($_POST['submit_data_and_close'])) {
+      $this->Transaksi_model->inadd($post);
       if ($this->db->affected_rows() > 0) {
         echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi') . "'</script>";
       }

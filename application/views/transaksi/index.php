@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-1">
-      <a href="<?= base_url('transaksi/add') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
+      <a href="<?= base_url('transaksi/inadd') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Masuk</a>
+    </div>
+    <div class="col-md-1">
+      <a href="<?= base_url('transaksi/outadd') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Keluar</a>
     </div>
     <br>
     <div class="col-md">

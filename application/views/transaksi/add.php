@@ -57,11 +57,6 @@
             <input type="text" name="qty" class="form-control">
           </div>
           <div class="form-group">
-            <label for="jenis">Jenis Transaksi</label><br>
-            <label class="radio-inline"><input type="radio" name="jenis" value="1">IN</label>
-            <label class="radio-inline"><input type="radio" name="jenis" value="2">OUT</label>
-          </div>
-          <div class="form-group">
             <label>Tanggal Transaksi</label>
             <div class="form-group">
               <input type="date" class="form-control" name="tanggal">

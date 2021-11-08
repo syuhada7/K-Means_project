@@ -29,7 +29,7 @@ class Transaksi_model extends CI_Model
     return $query;
   }
 
-  public function add($post)
+  public function inadd($post)
   {
     $params = [
       'no_biling' => $post['no_biling'],
@@ -37,7 +37,21 @@ class Transaksi_model extends CI_Model
       'id_kapal'  => $post['kapal'],
       'id_catch'  => $post['tangkap'],
       'qty'       => $post['qty'],
-      'id_jenis'  => $post['jenis'],
+      'id_jenis'  => $post[1],
+      'tanggal'   => $post['tanggal']
+    ];
+    $this->db->insert('transaksi', $params);
+  }
+
+  public function outadd($post)
+  {
+    $params = [
+      'no_biling' => $post['no_biling'],
+      'id_item'   => $post['item'],
+      'id_kapal'  => $post['kapal'],
+      'id_catch'  => $post['tangkap'],
+      'qty'       => $post['qty'],
+      'id_jenis'  => $post[2],
       'tanggal'   => $post['tanggal']
     ];
     $this->db->insert('transaksi', $params);

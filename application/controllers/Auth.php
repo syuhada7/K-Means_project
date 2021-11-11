@@ -23,7 +23,7 @@ class Auth extends CI_Controller
       $pass = $this->input->post('password', true);
       $cek = $this->User_model->login($user, $pass);
       if ($cek->num_rows() == 1) {
-        $data['title'] = 'Main Menu';
+        $data['title'] = 'Dashboard';
         foreach ($cek->result() as $row) {
           $users = array(
             'username' => $row->username,
@@ -31,9 +31,14 @@ class Auth extends CI_Controller
           );
           $data['user'] = $row->username;
           $data['level'] = $row->status_user;
-          $this->load->view('template/header_menu', $data);
-          $this->load->view('menu/index', $data);
-          $this->load->view('template/footer');
+          $data['jmlmsk'] = $this->Dashboard_model->tranMsk();
+          $data['jmlklr'] = $this->Dashboard_model->tranOut();
+          $data['jmlkpl'] = $this->Dashboard_model->ikan();
+          $data['db'] = $this->db->db_connect();
+
+          $this->load->view('template/headerA', $data);
+          $this->load->view('auth/board', $data);
+          $this->load->view('template/footerA');
         }
       } else {
         echo "<script>

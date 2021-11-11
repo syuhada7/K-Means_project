@@ -16,9 +16,9 @@ class Dashboard extends CI_Controller
     $data['jmlkpl'] = $this->Dashboard_model->ikan();
     $data['db'] = $this->db->db_connect();
 
-    $this->load->view('template/header', $data);
-    $this->load->view('auth/dashboard', $data);
-    $this->load->view('template/footer_menu');
+    $this->load->view('template/headerA', $data);
+    $this->load->view('auth/board', $data);
+    $this->load->view('template/footerA');
   }
 
   public function forecast()

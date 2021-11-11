@@ -39,11 +39,11 @@
           </li>
         </a>
         <a href="<?= base_url('dashboard/forecast'); ?>">
-				  <li>
-					  <div class="front" id="box3"><span class="fa fa-line-chart fa-5x"></span></div>
-					  <div class="back">FORECAST DATA</div>
-				  </li>
-			  </a>
+          <li>
+            <div class="front" id="box3"><span class="fa fa-line-chart fa-5x"></span></div>
+            <div class="back">FORECAST DATA</div>
+          </li>
+        </a>
         <a href="<?= base_url('auth/about'); ?>">
           <li>
             <div class="front" id="box5"><span class="fa fa-question-circle-o fa-5x"></span></div>

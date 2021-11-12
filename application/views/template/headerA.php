@@ -10,17 +10,19 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css'); ?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/bootstrap/fonts/font-awesome.min.css'); ?>">
   <!-- Ionicons -->
   <link rel="shortcut icon" href="<?= base_url('assets/logo mercu.png'); ?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/dist/css/AdminLTE.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/dist/css/input.css'); ?>">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap-select.min.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/datepicker/datepicker3.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.css'); ?>" />
+  <!-- AdminLTE Skins. Choose a skin from the css/skins -->
   <link rel="stylesheet" href="<?= base_url('assets/dist/css/skins/_all-skins.min.css'); ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/dist/css/chartphp.css'); ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/dist/css/jquery-ui.min.css'); ?>">
 
   <!-- JS -->
   <script src="<?= base_url('assets/dist/js/jquery.min.js'); ?>"></script>
@@ -76,8 +78,23 @@
           <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
             <?php if ($level == 'Admin') { ?>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="<?= base_url('dashboard'); ?>"><i class="fa fa-tachometer"></i></a></li>
+                <li><a href="<?= base_url('dashboard'); ?>"><i class="fa fa-tachometer"></i></a></li>
                 <li><a href="<?= base_url('transaksi'); ?>" data-toggle="tooltip"><i class="fa fa-pencil"></i></a></li>
+                <li><a href="<?= base_url('mining'); ?>" data-toggle="tooltip"><i class="fa fa-bar-chart"></i></a></li>
+                <li><a href="<?= base_url('dashboard/forecast'); ?>" data-toggle="tooltip"><i class="fa fa-line-chart"></i></a></li>
+              </ul>
+            <?php } ?>
+            <?php if ($level == 'Employee') { ?>
+              <ul class="nav navbar-nav">
+                <li><a href="<?= base_url('dashboard'); ?>"><i class="fa fa-tachometer"></i></a></li>
+                <li><a href="<?= base_url('transaksi'); ?>" data-toggle="tooltip"><i class="fa fa-pencil"></i></a></li>
+                <li><a href="<?= base_url('mining'); ?>" data-toggle="tooltip"><i class="fa fa-bar-chart"></i></a></li>
+                <li><a href="<?= base_url('dashboard/forecast'); ?>" data-toggle="tooltip"><i class="fa fa-line-chart"></i></a></li>
+              </ul>
+            <?php } ?>
+            <?php if ($level == 'Pimpinan') { ?>
+              <ul class="nav navbar-nav">
+                <li><a href="<?= base_url('dashboard'); ?>"><i class="fa fa-tachometer"></i></a></li>
                 <li><a href="<?= base_url('mining'); ?>" data-toggle="tooltip"><i class="fa fa-bar-chart"></i></a></li>
                 <li><a href="<?= base_url('dashboard/forecast'); ?>" data-toggle="tooltip"><i class="fa fa-line-chart"></i></a></li>
               </ul>

@@ -3,12 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
-  public function login($user, $pass)
+  public function login($post)
   {
     $this->db->select('*');
     $this->db->from('user');
-    $this->db->where('username', $user);
-    $this->db->where('password', md5($pass));
+    $this->db->where('username', $post['username']);
+    $this->db->where('password', md5($post['password']));
     $query = $this->db->get();
     return $query;
   }

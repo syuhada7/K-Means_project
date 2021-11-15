@@ -27,8 +27,6 @@
   <!-- JS -->
   <script src="<?= base_url('assets/dist/js/jquery.min.js'); ?>"></script>
   <script src="<?= base_url('assets/dist/js/bootstrap.min.js'); ?>"></script>
-  <script src="<?= base_url('assets/dist/js/highcharts.js'); ?>"></script>
-  <script type="text/javascript" src="<?= base_url('assets/dist/js/data.js'); ?>"></script>
   <script type="text/javascript">
     function showTime() {
       var a_p = "";

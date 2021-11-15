@@ -12,6 +12,8 @@
 
 <!-- jQuery 1.9.1 -->
 <script src="<?= base_url('assets/plugins/jQuery/jquery-1.9.1.min.js'); ?>"></script>
+<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.js'); ?>"></script>
+<script src="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/plugins/jQuery/jquery-1.11.0.js'); ?>"></script>
 <script type="text/javascript" src="<?= base_url('assets/plugins/jQueryUI/jquery-ui.min.js'); ?>"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -25,108 +27,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/dist/js/demo.js'); ?>"></script>
 
-<script type="text/javascript">
-  $(function() {
-    Highcharts.chart('total_masuk', {
-      data: {
-        table: 'jml_masuk'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Item Raw Material Masuk'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Item Raw Material'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-  $(function() {
-    Highcharts.chart('total_keluar', {
-      data: {
-        table: 'jml_keluar'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Item Raw Material Keluar'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Item Raw Material'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-  $(function() {
-    Highcharts.chart('total_tangkap', {
-      data: {
-        table: 'jml_tangkap'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Jenis Penangkapan'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Metode'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-  $(function() {
-    Highcharts.chart('total_qty', {
-      data: {
-        table: 'jml_qty'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Jumlah Qty Item'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Jumlah Qty'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-</script>
 </body>
 <script src="<?= base_url('assets/dist/js/jquery.min.js'); ?>"></script>
 <script src="<?= base_url('assets/dist/js/bootstrap.min.js'); ?>"></script>

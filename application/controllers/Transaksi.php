@@ -6,6 +6,8 @@ class Transaksi extends CI_Controller
   function __construct()
   {
     parent::__construct();
+    check_not_login();
+    check_user();
     $this->load->library('form_validation');
   }
 

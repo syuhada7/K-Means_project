@@ -6,6 +6,8 @@ class User extends CI_Controller
   function __construct()
   {
     parent::__construct();
+    check_not_login();
+    check_admin();
     $this->load->library('form_validation');
   }
 
@@ -13,9 +15,7 @@ class User extends CI_Controller
   {
     $data['title'] = 'Data User';
     $data['row'] = $this->User_model->get();
-    $this->load->view('template/header', $data);
-    $this->load->view('user/index', $data);
-    $this->load->view('template/footer');
+    $this->template->load('template/template', 'user/index', $data);
   }
 
   public function add()

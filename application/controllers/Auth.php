@@ -10,6 +10,7 @@ class Auth extends CI_Controller
 
   public function index()
   {
+    check_already_login();
     $data['title'] = 'Login Page';
     $this->load->view('template/header_auth', $data);
     $this->load->view('auth/index');
@@ -18,35 +19,34 @@ class Auth extends CI_Controller
 
   public function login()
   {
-    if (isset($_POST['login'])) {
-      $user = $this->input->post('username', true);
-      $pass = $this->input->post('password', true);
-      $cek = $this->User_model->login($user, $pass);
-      if ($cek->num_rows() == 1) {
-        $data['title'] = 'Dashboard';
-        foreach ($cek->result() as $row) {
-          $users = array(
-            'username' => $row->username,
-            'status_user' => $row->status_user
-          );
-          $data['user'] = $row->username;
-          $data['level'] = $row->status_user;
-          $data['jmlmsk'] = $this->Dashboard_model->tranMsk();
-          $data['jmlklr'] = $this->Dashboard_model->tranOut();
-          $data['jmlkpl'] = $this->Dashboard_model->ikan();
-          $data['db'] = $this->db->db_connect();
-
-          $this->load->view('template/headerA', $data);
-          $this->load->view('auth/board', $data);
-          $this->load->view('template/footerA');
-        }
+    $post = $this->input->post(null, TRUE);
+    if (isset($post['btn_login'])) {
+      $query = $this->User_model->login($post);
+      if ($query->num_rows() > 0) {
+        $row = $query->row();
+        $params = array(
+          'id_user' => $row->id_user,
+          'status_user' => $row->status_user
+        );
+        $this->session->set_userdata($params);
+        echo "<script>
+        alert('Hore, Login Success');
+        window.location='" . site_url('Dashboard') . "';
+        </script>";
       } else {
         echo "<script>
-              alert('Please Check Again..!!');
-              window.location='" . site_url('auth') . "';
-              </script>";
+        alert('Sorry, Please check your username / password');
+        window.location='" . site_url('Auth') . "';
+        </script>";
       }
     }
+  }
+
+  public function logout()
+  {
+    $params = array('id_user', 'status_user');
+    $this->session->unset_userdata($params);
+    redirect('Auth');
   }
 
   public function about()

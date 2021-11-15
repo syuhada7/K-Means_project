@@ -6,6 +6,7 @@ class Dashboard extends CI_Controller
   function __construct()
   {
     parent::__construct();
+    check_not_login();
   }
 
   public function index()
@@ -15,10 +16,7 @@ class Dashboard extends CI_Controller
     $data['jmlklr'] = $this->Dashboard_model->tranOut();
     $data['jmlkpl'] = $this->Dashboard_model->ikan();
     $data['db'] = $this->db->db_connect();
-
-    $this->load->view('template/headerA', $data);
-    $this->load->view('auth/board', $data);
-    $this->load->view('template/footerA');
+    $this->template->load('template/template', 'dashboard', $data);
   }
 
   public function forecast()

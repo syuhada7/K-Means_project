@@ -54,9 +54,7 @@ class User extends CI_Controller
       if ($query->num_rows() > 0) {
         $data['row'] = $query->row();
         $data['title'] = 'Ubah Data User';
-        $this->load->view('template/header', $data);
-        $this->load->view('user/edit', $data);
-        $this->load->view('template/footer');
+        $this->template->load('template/template', 'user/edit', $data);
       } else {
         echo "<script>alert('Data not found !!') window.location='" . site_url('User') . "'</script>";
       }

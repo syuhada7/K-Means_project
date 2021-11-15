@@ -22,7 +22,7 @@ class Kapal extends CI_Controller
     if (isset($_POST['submit'])) {
       $this->Kapal_model->add($post);
       if ($this->db->affected_rows() > 0) {
-        redirect('transaksi/add');
+        redirect('transaksi/inadd');
       }
     }
   }

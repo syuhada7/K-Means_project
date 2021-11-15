@@ -15,18 +15,7 @@ class Transaksi extends CI_Controller
   {
     $data['title'] = 'Data Transaksi';
     $data['row'] = $this->Transaksi_model->getAll();
-    $cek = $this->User_model->get();
-    foreach ($cek->result() as $row) {
-      $users = array(
-        'username' => $row->username,
-        'status_user' => $row->status_user
-      );
-      $data['user'] = $row->username;
-      $data['level'] = $row->status_user;
-      $this->load->view('template/headerA', $data);
-      $this->load->view('transaksi/index', $data);
-      $this->load->view('template/footerA');
-    }
+    $this->template->load('template/template', 'transaksi/index', $data);;
   }
 
   public function inadd()
@@ -36,9 +25,7 @@ class Transaksi extends CI_Controller
     $data['item'] = $this->Item_model->get();
     $data['kapal'] = $this->Kapal_model->get();
     $data['tangkap'] = $this->Tangkap_model->get();
-    $this->load->view('template/header_auth', $data);
-    $this->load->view('transaksi/add', $data);
-    $this->load->view('template/footerA');
+    $this->template->load('template/template', 'transaksi/add', $data);
   }
 
   public function outadd()
@@ -47,9 +34,7 @@ class Transaksi extends CI_Controller
     $data['row'] = $this->Transaksi_model->getAll()->result();
     $data['item'] = $this->Item_model->get()->result();
     $data['biling'] = $this->Transaksi_model->billing();
-    $this->load->view('template/header', $data);
-    $this->load->view('transaksi/out', $data);
-    $this->load->view('template/footer');
+    $this->template->load('template/template', 'transaksi/out', $data);
   }
 
   public function ubah($id)
@@ -64,9 +49,7 @@ class Transaksi extends CI_Controller
       $data['item'] = $this->Item_model->get();
       $data['kapal'] = $this->Kapal_model->get();
       $data['tangkap'] = $this->Tangkap_model->get();
-      $this->load->view('template/header', $data);
-      $this->load->view('transaksi/edit', $data);
-      $this->load->view('template/footer');
+      $this->template->load('template/template', 'transaksi/edit', $data);
     }
   }
 

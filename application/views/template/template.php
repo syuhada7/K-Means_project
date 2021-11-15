@@ -17,6 +17,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.css'); ?>" />
   <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/input.css">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/datepicker/datepicker3.css'); ?>">
   <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -58,7 +59,6 @@
     setInterval(showTime, 500);
   </script>
 </head>
-<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 
 <body class="hold-transition skin-blue layout-top-nav">
   <div class="wrapper">
@@ -131,9 +131,9 @@
   <footer class="main-footer">
     <div class="container">
       <div class="pull-right hidden-xs">
-        <b>Version</b> 2.3.8
+        <b>Universitas Mercu Buana</b>
       </div>
-      <strong>Copyright Syuhada N - 41516310010 &copy;2021 Universitas Mercu Buana.</strong>
+      <strong>Copyright Syuhada N - 41516310010 &copy;2021</strong>
     </div>
     <!-- /.container -->
   </footer>
@@ -141,6 +141,7 @@
   <!-- ./wrapper -->
 
   <!-- jQuery 2.2.3 -->
+  <script src="<?= base_url('assets/dist/js/jquery.min.js'); ?>"></script>
   <script src="<?= base_url() ?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <!-- Bootstrap 3.3.6 -->
   <script src="<?= base_url() ?>assets/bootstrap/js/bootstrap.min.js"></script>
@@ -152,7 +153,6 @@
   <script src="<?= base_url() ?>assets/dist/js/app.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?= base_url() ?>assets/dist/js/demo.js"></script>
-
   <!-- Data Table -->
   <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.js'); ?>"></script>
   <script src="<?= base_url('assets/plugins/datatables/dataTables.bootstrap.js'); ?>"></script>
@@ -162,109 +162,174 @@
       $("#transaksi").dataTable();
     });
   </script>
-  <!-- Tampil Grafik -->
+  <!-- date picker -->
+  <script src="<?= base_url('assets/plugins/datepicker/bootstrap-datepicker.js'); ?>"></script>
   <script type="text/javascript">
     $(function() {
-      Highcharts.chart('total_masuk', {
-        data: {
-          table: 'jml_masuk'
-        },
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Item Raw Material Masuk'
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: 'Item Raw Material'
-          }
-        },
-        tooltip: {
-          formatter: function() {
-            return '<b>' + this.series.name + '</b><br/>' +
-              this.point.y + ' ' + this.point.name;
-          }
-        }
-      });
-    });
-    $(function() {
-      Highcharts.chart('total_keluar', {
-        data: {
-          table: 'jml_keluar'
-        },
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Item Raw Material Keluar'
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: 'Item Raw Material'
-          }
-        },
-        tooltip: {
-          formatter: function() {
-            return '<b>' + this.series.name + '</b><br/>' +
-              this.point.y + ' ' + this.point.name;
-          }
-        }
-      });
-    });
-    $(function() {
-      Highcharts.chart('total_tangkap', {
-        data: {
-          table: 'jml_tangkap'
-        },
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Jenis Penangkapan'
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: 'Metode'
-          }
-        },
-        tooltip: {
-          formatter: function() {
-            return '<b>' + this.series.name + '</b><br/>' +
-              this.point.y + ' ' + this.point.name;
-          }
-        }
-      });
-    });
-    $(function() {
-      Highcharts.chart('total_qty', {
-        data: {
-          table: 'jml_qty'
-        },
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Jumlah Qty Item'
-        },
-        yAxis: {
-          allowDecimals: false,
-          title: {
-            text: 'Jumlah Qty'
-          }
-        },
-        tooltip: {
-          formatter: function() {
-            return '<b>' + this.series.name + '</b><br/>' +
-              this.point.y + ' ' + this.point.name;
-          }
-        }
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: '-3d'
       });
     });
   </script>
 </body>
+<!-- Modal & Panggil Data -->
+<script>
+  $(document).ready(function() {
+    $('#btn-1').click(function() {
+      $('#myModal').modal('show');
+      $('#tambah').attr({
+        name: 'tambah_item',
+        placeholder: 'Item'
+      });
+      $('#f_tambah').attr({
+        action: '<?= base_url('item/add'); ?>'
+      });
+    });
+
+    $('#btn-2').click(function() {
+      $('#myModal').modal('show');
+      $('#tambah').attr({
+        name: 'tambah_kapal',
+        placeholder: 'Nama Kapal'
+      });
+      $('#f_tambah').attr({
+        action: '<?= base_url('kapal/add'); ?>'
+      });
+    });
+
+    $('#btn-3').click(function() {
+      $('#myModal').modal('show');
+      $('#tambah').attr({
+        name: 'tambah_tangkap',
+        placeholder: 'Nama Jenis Tangkap'
+      });
+      $('#f_tambah').attr({
+        action: '<?= base_url('tangkap/add'); ?>'
+      });
+    });
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $(document).on('click', '#select', function() {
+      var id_transaksi = $(this).data('id_transaksi');
+      var nama_item = $(this).data('nama_item');
+      var nama_kapal = $(this).data('nama_kapal');
+      var nama_catch = $(this).data('nama_catch');
+      var qty = $(this).data('qty');
+      // -----
+      $('#id_transaksi').val(id_transaksi);
+      $('#nama_item').val(nama_item);
+      $('#nama_kapal').val(nama_kapal);
+      $('#nama_catch').val(nama_catch);
+      $('#qty').val(qty);
+    })
+  })
+</script>
+
+<!-- Tampil Grafik -->
+<script type="text/javascript">
+  $(function() {
+    Highcharts.chart('total_masuk', {
+      data: {
+        table: 'jml_masuk'
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Item Raw Material Masuk'
+      },
+      yAxis: {
+        allowDecimals: false,
+        title: {
+          text: 'Item Raw Material'
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return '<b>' + this.series.name + '</b><br/>' +
+            this.point.y + ' ' + this.point.name;
+        }
+      }
+    });
+  });
+  $(function() {
+    Highcharts.chart('total_keluar', {
+      data: {
+        table: 'jml_keluar'
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Item Raw Material Keluar'
+      },
+      yAxis: {
+        allowDecimals: false,
+        title: {
+          text: 'Item Raw Material'
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return '<b>' + this.series.name + '</b><br/>' +
+            this.point.y + ' ' + this.point.name;
+        }
+      }
+    });
+  });
+  $(function() {
+    Highcharts.chart('total_tangkap', {
+      data: {
+        table: 'jml_tangkap'
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Jenis Penangkapan'
+      },
+      yAxis: {
+        allowDecimals: false,
+        title: {
+          text: 'Metode'
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return '<b>' + this.series.name + '</b><br/>' +
+            this.point.y + ' ' + this.point.name;
+        }
+      }
+    });
+  });
+  $(function() {
+    Highcharts.chart('total_qty', {
+      data: {
+        table: 'jml_qty'
+      },
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Jumlah Qty Item'
+      },
+      yAxis: {
+        allowDecimals: false,
+        title: {
+          text: 'Jumlah Qty'
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return '<b>' + this.series.name + '</b><br/>' +
+            this.point.y + ' ' + this.point.name;
+        }
+      }
+    });
+  });
+</script>
 
 </html>

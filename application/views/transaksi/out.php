@@ -45,11 +45,11 @@
                   </div>
                   <div class="col-lg">
                     <label for="qty">Initial Stock</label>
-                    <input type="number" name="qty" id="qty" class="form-control" readonly>
+                    <input type="number" name="stok" id="stok" class="form-control" readonly>
                   </div>
                   <div class="col-lg">
                     <label for="qty">Qty Out</label>
-                    <input type="number" name="qty2" id="qty2" class="form-control">
+                    <input type="number" name="qty" id="qty" class="form-control">
                   </div>
                   <div class="col-lg">
                     <label>Tanggal Transaksi</label>
@@ -59,8 +59,8 @@
                   </div>
                 </div>
                 <div class="panel-footer">
-                  <button type="just_submit" class="btn btn-info" name="submit_data"><i class="fa fa-paper-plane"></i> Submit</button>
-                  <button type="submit" class="btn btn-warning" name="submit_data_and_close"><i class="fa fa-save"></i> Submit & Close</button>
+                  <button type="just_submit" class="btn btn-info" id="submit_data" name="submit_data"><i class="fa fa-paper-plane"></i> Submit</button>
+                  <button type="submit" class="btn btn-warning" id="submit_data_and_close" name="submit_data_and_close"><i class="fa fa-save"></i> Submit & Close</button>
                 </div>
               </div>
           </form>
@@ -100,9 +100,9 @@
                 <td><?= $data->vessel ?></td>
                 <td><?= $data->barang ?></td>
                 <td><?= $data->metode ?></td>
-                <td><?= $data->qty ?></td>
+                <td><?= $data->stok ?></td>
                 <td>
-                  <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->id_transaksi ?>" data-nama_item="<?= $data->barang ?>" data-nama_kapal="<?= $data->vessel ?>" data-nama_catch="<?= $data->metode ?>" data-qty="<?= $data->qty ?>">
+                  <button class="btn btn-xs btn-info" id="select" data-id="<?= $data->id_transaksi ?>" data-nama_item="<?= $data->barang ?>" data-nama_kapal="<?= $data->vessel ?>" data-nama_catch="<?= $data->metode ?>" data-stok="<?= $data->stok ?>">
                     <i class="fa fa-check"></i> Select
                   </button>
                 </td>

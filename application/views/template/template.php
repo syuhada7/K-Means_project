@@ -10,7 +10,7 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/bootstrap/fonts/font-awesome.min.css'); ?>">
   <!-- Ionicons -->
   <link rel="shortcut icon" href="<?= base_url('assets/logo mercu.png'); ?>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -217,13 +217,19 @@
       var nama_item = $(this).data('nama_item');
       var nama_kapal = $(this).data('nama_kapal');
       var nama_catch = $(this).data('nama_catch');
-      var qty = $(this).data('qty');
+      var stok = $(this).data('stok');
       // -----
       $('#id_transaksi').val(id_transaksi);
       $('#nama_item').val(nama_item);
       $('#nama_kapal').val(nama_kapal);
       $('#nama_catch').val(nama_catch);
-      $('#qty').val(qty);
+      $('#stok').val(stok);
+      var element = document.getElementById('submit_data');
+      if ($('#stok').val(stok) == 0) {
+        document.getElementById('submit_data').style.display = "none";
+      } else if (element) {
+        document.getElementById('submit_data').style.display = "block";
+      }
     })
   })
 </script>

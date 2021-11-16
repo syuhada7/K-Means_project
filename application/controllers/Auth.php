@@ -52,8 +52,6 @@ class Auth extends CI_Controller
   public function about()
   {
     $data['title'] = 'About';
-    $this->load->view('template/header', $data);
-    $this->load->view('auth/about', $data);
-    $this->load->view('template/footer');
+    $this->template->load('template/template', 'auth/about', $data);
   }
 }

@@ -50,7 +50,7 @@ class Transaksi_model extends CI_Model
       'id_item'   => $post['nama_item'],
       'id_kapal'  => $post['nama_kapal'],
       'id_catch'  => $post['nama_catch'],
-      'qty'       => $post['qty2'],
+      'qty'       => $post['stock'] - $post['qty'],
       'id_jenis'  => $post[2],
       'tanggal'   => $post['tanggal']
     ];

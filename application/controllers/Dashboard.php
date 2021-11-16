@@ -38,8 +38,6 @@ class Dashboard extends CI_Controller
     $data['yf'] = $this->Dashboard_model->qty_yf();
     $data['yf2'] = $this->Dashboard_model->qty_yf2();
     $data['yf3'] = $this->Dashboard_model->qty_yf3();
-    $this->load->view('template/header', $data);
-    $this->load->view('auth/forecast', $data);
-    $this->load->view('template/footer_menu');
+    $this->template->load('template/template','auth/forecast', $data);
   }
 }

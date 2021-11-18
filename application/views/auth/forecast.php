@@ -1,4 +1,5 @@
 <?php
+
 $data = [0, $aug, $sep, $okt];
 $bulan = [0, 8, 9, 10, 11];
 
@@ -25,12 +26,12 @@ for ($k = 0; $k < count($data); $k++) {
   if ($k > 0) {
     // Hitung Forecast
     $hitungForecast = $ct[$k] * $data[$k] + (1 - $ct[$k]) * $hasilForecast[$k];
-    $nff = number_format($hitungForecast, 1);
+    $nff = number_format($hitungForecast, 2, '.', ',');
     array_push($hasilForecast, $nff);
 
     // Hitung E
     $hitungE = $data[$k] - $hasilForecast[$k];
-    $nfe = number_format($hitungE, 1);
+    $nfe = number_format($hitungE, 2, '.', ',');
     array_push($et, $nfe);
     array_push($ea, abs($nfe));
     array_push($ea2, pow($nfe, 2));
@@ -38,17 +39,17 @@ for ($k = 0; $k < count($data); $k++) {
 
     // Hitung A
     $hitungA = $beta * $et[$k] + (1 - $beta) * $at[$k - 1];
-    $nfa = number_format($hitungA, 1);
+    $nfa = number_format($hitungA, 2, '.', ',');
     array_push($at, $nfa);
 
     // Hitung M
     $hitungM = $beta * abs($et[$k]) + (1 - $beta) * $mt[$k - 1];
-    $nfm = number_format($hitungM, 1);
+    $nfm = number_format($hitungM, 2, '.', ',');
     array_push($mt, $nfm);
 
     // Hitung Alpha
     $HitungAlpha = abs($at[$k] / $mt[$k]);
-    $nfal = number_format($HitungAlpha, 2);
+    $nfal = number_format($HitungAlpha, 2, '.', ',');
     array_push($ct, $nfal);
   }
 }
@@ -171,9 +172,9 @@ array_push($ct, "-");
         </thead>
         <tbody>
           <tr>
-            <td><?php echo number_format($mad, 2); ?></td>
-            <td><?php echo $mse; ?></td>
-            <td><?php echo number_format($mape, 2) . "%"; ?></td>
+            <td><?= number_format($mad, 2, '.', ','); ?></td>
+            <td><?= number_format($mse, 2, '.', ','); ?></td>
+            <td><?= number_format($mape, 2, '.', ',') . "%"; ?></td>
           </tr>
         </tbody>
       </table>
@@ -185,8 +186,8 @@ array_push($ct, "-");
       <hr>
       Berikut ini adalah peramalan jumlah quantity untuk 2 bulan kedepan berdasarkan data transaksi sebelumnya.
       Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
-      digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= $mad; ?>, MSE : <?= $mse; ?> dan MAPE : <?= number_format($mape, 2) . "%"; ?> yang berarti permalan data raw material
-      tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= 100 - number_format($mape, 2) . "%"; ?>.
+      digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= number_format($mad, 2, '.', ','); ?>, MSE : <?= number_format($mse, 2, '.', ','); ?> dan MAPE : <?= number_format($mape, 2, '.', ',') . "%"; ?> yang berarti permalan data raw material
+      tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= 100 - number_format($mape, 2, '.', ',') . "%"; ?>.
     </div>
   </div>
 </div>

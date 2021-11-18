@@ -84,8 +84,8 @@
             while ($rkjs = mysqli_fetch_assoc($sqlJumlkeluar)) {
             ?>
               <tr>
-                <td><?php echo $rk['nama_item']; ?></td>
-                <td><?php echo $rk['jumlah']; ?></td>
+                <td><?= $rk['nama_item']; ?></td>
+                <td><?= $rk['jumlah']; ?></td>
               </tr>
             <?php } ?>
           </tbody>
@@ -103,8 +103,8 @@
             while ($rpj = mysqli_fetch_assoc($sqlJumPJ)) {
             ?>
               <tr>
-                <td><?php echo $rpj['nama_catch']; ?></td>
-                <td><?php echo $rpj['jumlah']; ?></td>
+                <td><?= $rpj['nama_catch']; ?></td>
+                <td><?= $rpj['jumlah']; ?></td>
               </tr>
             <?php } ?>
           </tbody>
@@ -122,8 +122,8 @@
             while ($rjg = mysqli_fetch_assoc($sqlJumGel)) {
             ?>
               <tr>
-                <td><?php echo $rjg['nama_kapal']; ?></td>
-                <td><?php echo $rjg['qty']; ?></td>
+                <td><?= $rjg['nama_kapal']; ?></td>
+                <td><?= $rjg['qty']; ?></td>
               </tr>
             <?php } ?>
           </tbody>

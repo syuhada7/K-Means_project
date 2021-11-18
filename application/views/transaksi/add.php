@@ -20,12 +20,12 @@
               <div class="panel-body">
                 <div class="form-group">
                   <label for="no_biling">No Transaksi</label>
-                  <input type="text" name="no_biling" class="form-control">
+                  <input type="text" name="no_biling" class="form-control" required autofocus>
                 </div>
                 <div class="form-group">
                   <label for="item">Jenis Item</label>
                   <div class="input-group">
-                    <select class="form-control" data-live-search="true" name="item" data-size="5">
+                    <select class="form-control" data-live-search="true" name="item" data-size="5" required>
                       <option>- Pilih Item -</option>
                       <?php foreach ($item->result() as $r_item) : ?>
                         <option value="<?= $r_item->id_item; ?>"><?= $r_item->nama_item; ?></option>
@@ -66,12 +66,12 @@
                 </div>
                 <div class="form-group">
                   <label for="qty">Qty</label>
-                  <input type="text" name="qty" class="form-control">
+                  <input type="text" name="qty" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Tanggal Transaksi</label>
                   <div class="form-group">
-                    <input type="date" class="form-control" name="tanggal">
+                    <input type="date" class="form-control" name="tanggal" required>
                   </div>
                 </div>
               </div>

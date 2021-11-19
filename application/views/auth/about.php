@@ -12,16 +12,16 @@
     <div class="container">
       <div class="row">
         <div class="jumbotron">
-          <h3 align="center"><i class="fa fa-info-circle"></i> ABOUT THIS APPLICATION</h3>
+          <h3 class="text-center"><i class="fa fa-info-circle"></i> ABOUT THIS APPLICATION</h3>
           <hr>
-          <p align="center">Ini adalah Aplikasi Klasifikasi Raw Material yang menerapkan Algoritma K-Means untuk mengcluster data Raw Material Ikan Tuna. <br>
+          <p class="text-center">Ini adalah Aplikasi Klasifikasi Raw Material yang menerapkan Algoritma K-Means untuk mengcluster data Raw Material Ikan Tuna. <br>
             Study Kasus PT. Pahala Bahari Nusantara - Jakarta
           </p>
-          <p align="center"><u>Dibuat Oleh : </u><br />
+          <p class="text-center"><u>Dibuat Oleh : </u><br />
             Syuhada Nurjuliadi<br />
             41516310010<br />
           </p>
-          <p align="center">- Teknik Informatika 2021 -</p>
+          <p class="text-center">- Teknik Informatika 2021 -</p>
         </div>
       </div>
     </div>

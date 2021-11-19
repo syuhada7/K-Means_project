@@ -224,12 +224,6 @@
       $('#nama_kapal').val(nama_kapal);
       $('#nama_catch').val(nama_catch);
       $('#stok').val(stok);
-      var element = document.getElementById('submit_data');
-      if ($('#stok').val(stok) == 0) {
-        document.getElementById('submit_data').style.display = "none";
-      } else if (element) {
-        document.getElementById('submit_data').style.display = "block";
-      }
     })
   })
 </script>

@@ -60,8 +60,8 @@ array_push($mt, "-");
 array_push($ct, "-");
 ?>
 
-<h3 style="margin-bottom: 20px;">FORECAST DATA DENGAN METODE <i>EXPONENTIAL SMOOTHING</i></h3>
 <div class="container">
+  <h3 class="text-center">FORECAST DATA DENGAN METODE <i>EXPONENTIAL SMOOTHING</i></h3>
   <div class="col-md-12">
     <div id="forcase">
     </div>
@@ -74,7 +74,7 @@ array_push($ct, "-");
             x: -20 //center
           },
           xAxis: {
-            categories: ['Agustus', 'September', 'Oktober', 'November', 'Desember']
+            categories: ['Agustus', 'September', 'Oktober', 'November']
           },
           yAxis: {
             title: {
@@ -97,7 +97,7 @@ array_push($ct, "-");
           },
           series: [{
             name: 'Forecasting',
-            data: [<?= $hitungForecast; ?>, <?= $hitungForecast; ?>, <?= $hitungForecast; ?>, <?= $hitungForecast; ?>, <?= $hitungForecast; ?>]
+            data: [2445000, 1980504, 7937959, <?= $hitungForecast; ?>]
           }, {
             name: 'Aktual Albacore',
             data: [0, <?= $alb; ?>, <?= $alb2; ?>]
@@ -184,7 +184,7 @@ array_push($ct, "-");
     <div class="jumbotron" style="text-align: justify; border-radius: 0; margin-top: 15px; padding: 40px;">
       <p align="center">Keterangan</p>
       <hr>
-      Berikut ini adalah peramalan jumlah quantity untuk 2 bulan kedepan berdasarkan data transaksi sebelumnya.
+      Berikut ini adalah peramalan jumlah quantity untuk 1 bulan kedepan berdasarkan data transaksi sebelumnya.
       Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
       digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= number_format($mad, 2, '.', ','); ?>, MSE : <?= number_format($mse, 2, '.', ','); ?> dan MAPE : <?= number_format($mape, 2, '.', ',') . "%"; ?> yang berarti permalan data raw material
       tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= 100 - number_format($mape, 2, '.', ',') . "%"; ?>.

@@ -13,25 +13,25 @@ $ea2 = array(); // Nilai Error Absolute Kuadrat
 $pe = array(); // Hitung Persentage Error
 $hasilForecast = array(); //Untuk menampung hasil forecast
 
-$hasilForecast[0] = "-";
+$hasilForecast[0] = 0.00;
 $hasilForecast[1] = array_sum($data) / count($data);
-$at[0] = "-";
-$mt[0] = "-";
-$ct[0] = "-";
+$at[0] = 0.00;
+$mt[0] = 0.00;
+$ct[0] = 0.00;
 $ct[1] = 0.20;
 $beta = 0.50;
-$et[0] = "-";
+$et[0] = 0.00;
 
 for ($k = 0; $k < count($data); $k++) {
   if ($k > 0) {
     // Hitung Forecast
     $hitungForecast = $ct[$k] * $data[$k] + (1 - $ct[$k]) * $hasilForecast[$k];
-    $nff = number_format($hitungForecast, 2, '.', ',');
+    $nff = round($hitungForecast);
     array_push($hasilForecast, $nff);
 
     // Hitung E
     $hitungE = $data[$k] - $hasilForecast[$k];
-    $nfe = number_format($hitungE, 2, '.', ',');
+    $nfe = round($hitungE);
     array_push($et, $nfe);
     array_push($ea, abs($nfe));
     array_push($ea2, pow($nfe, 2));
@@ -39,25 +39,25 @@ for ($k = 0; $k < count($data); $k++) {
 
     // Hitung A
     $hitungA = $beta * $et[$k] + (1 - $beta) * $at[$k - 1];
-    $nfa = number_format($hitungA, 2, '.', ',');
+    $nfa = round($hitungA);
     array_push($at, $nfa);
 
     // Hitung M
     $hitungM = $beta * abs($et[$k]) + (1 - $beta) * $mt[$k - 1];
-    $nfm = number_format($hitungM, 2, '.', ',');
+    $nfm = round($hitungM);
     array_push($mt, $nfm);
 
     // Hitung Alpha
     $HitungAlpha = abs($at[$k] / $mt[$k]);
-    $nfal = number_format($HitungAlpha, 2, '.', ',');
+    $nfal = round($HitungAlpha);
     array_push($ct, $nfal);
   }
 }
-array_push($data, "-");
-array_push($et, "-");
-array_push($at, "-");
-array_push($mt, "-");
-array_push($ct, "-");
+array_push($data, 0.00);
+array_push($et, 0.00);
+array_push($at, 0.00);
+array_push($mt, 0.00);
+array_push($ct, 0.00);
 ?>
 
 <div class="container">
@@ -98,24 +98,6 @@ array_push($ct, "-");
           series: [{
             name: 'Forecasting',
             data: [2445000, 1980504, 7937959, <?= $hitungForecast; ?>]
-          }, {
-            name: 'Aktual Albacore',
-            data: [0, <?= $alb; ?>, <?= $alb2; ?>]
-          }, {
-            name: 'Aktual Big Eye',
-            data: [0, <?= $be; ?>, <?= $be2; ?>]
-          }, {
-            name: 'Aktual Euth',
-            data: [0, 0, <?= $euth; ?>]
-          }, {
-            name: 'Aktual Skipjack',
-            data: [<?= $sj; ?>, <?= $sj2; ?>, <?= $sj3; ?>]
-          }, {
-            name: 'Aktual Tonggol',
-            data: [0, <?= $tgl; ?>, <?= $tgl2; ?>]
-          }, {
-            name: 'Aktual YellowFin',
-            data: [<?= $yf; ?>, <?= $yf2; ?>, <?= $yf3; ?>]
           }]
         });
       });
@@ -139,12 +121,12 @@ array_push($ct, "-");
           for ($tb = 0; $tb < count($data); $tb++) {
             echo "<tr>
                   <td>" . $bulan[$tb] . "</td>
-                  <td>" . $data[$tb] . "</td>
-                  <td>" . $hasilForecast[$tb] . "</td>
-                  <td>" . $et[$tb] . "</td>
-                  <td>" . $at[$tb] . "</td>
-                  <td>" . $mt[$tb] . "</td>
-                  <td>" . $ct[$tb] . "</td>
+                  <td>" . total($data[$tb]) . "</td>
+                  <td>" . total($hasilForecast[$tb]) . "</td>
+                  <td>" . total($et[$tb]) . "</td>
+                  <td>" . total($at[$tb]) . "</td>
+                  <td>" . total($mt[$tb]) . "</td>
+                  <td>" . total($ct[$tb]) . "</td>
                   </tr>";
           }
           ?>
@@ -159,6 +141,7 @@ array_push($ct, "-");
 
       // Hitung MAPE
       $mape = array_sum($pe) / 4;
+      var_dump($mape);
       ?>
       <h4>PERHITUNGAN KESALAHAN RAMALAN</h4>
       <hr>
@@ -172,9 +155,9 @@ array_push($ct, "-");
         </thead>
         <tbody>
           <tr>
-            <td><?= number_format($mad, 2, '.', ','); ?></td>
-            <td><?= number_format($mse, 2, '.', ','); ?></td>
-            <td><?= number_format($mape, 2, '.', ',') . "%"; ?></td>
+            <td><?= total($mad); ?></td>
+            <td><?= total($mse); ?></td>
+            <td><?= round($mape) . "%"; ?></td>
           </tr>
         </tbody>
       </table>
@@ -186,8 +169,8 @@ array_push($ct, "-");
       <hr>
       Berikut ini adalah peramalan jumlah quantity untuk 1 bulan kedepan berdasarkan data transaksi sebelumnya.
       Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
-      digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= number_format($mad, 2, '.', ','); ?>, MSE : <?= number_format($mse, 2, '.', ','); ?> dan MAPE : <?= number_format($mape, 2, '.', ',') . "%"; ?> yang berarti permalan data raw material
-      tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= 100 - number_format($mape, 2, '.', ',') . "%"; ?>.
+      digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= total($mad); ?>, MSE : <?= total($mse); ?> dan MAPE : <?= round($mape) . "%"; ?> yang berarti permalan data raw material
+      tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= round($mape) . "%"; ?>.
     </div>
   </div>
 </div>

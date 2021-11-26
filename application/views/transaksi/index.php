@@ -48,7 +48,7 @@
                 <td><?= $tr->barang; ?></td>
                 <td><?= $tr->vessel; ?></td>
                 <td><?= $tr->metode; ?></td>
-                <td><?= $tr->qty; ?></td>
+                <td><?= total($tr->qty); ?></td>
                 <td><?= indo_date($tr->tanggal); ?></td>
                 <td>
                   <?= anchor('transaksi/ubah/' . $tr->id_transaksi, '<button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Update</button>'); ?> |

@@ -221,9 +221,3 @@
     </div>
   </div>
 </section>
-<?php
-function total($total)
-{
-  $hasil = number_format($total, 2, ',', '.');
-  return $hasil;
-} ?>

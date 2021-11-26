@@ -52,3 +52,9 @@ function indo_date($date)
   $y = substr($date, 0, 4);
   return $d . '/' . $m . '/' . $y;
 }
+
+function total($total)
+{
+  $hasil = number_format($total, 2, ',', '.');
+  return $hasil;
+}

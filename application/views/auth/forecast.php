@@ -59,67 +59,77 @@ array_push($at, 0.00);
 array_push($mt, 0.00);
 array_push($ct, 0.00);
 ?>
-
-<div class="container">
-  <h3 class="text-center">FORECAST DATA DENGAN METODE <i>EXPONENTIAL SMOOTHING</i></h3>
-  <div class="col-md-12">
-    <div id="forcase">
-    </div>
-    <br>
-    <script type="text/javascript">
-      $(function() {
-        Highcharts.chart('forcase', {
-          title: {
-            text: 'Forecasting Data Raw Material',
-            x: -20 //center
-          },
-          xAxis: {
-            categories: ['Agustus', 'September', 'Oktober', 'November']
-          },
-          yAxis: {
-            title: {
-              text: 'Jumlah Quantity'
-            },
-            plotLines: [{
-              value: 0,
-              width: 1,
-              color: '#808080'
-            }]
-          },
-          tooltip: {
-            valueSuffix: 'Kg'
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-          },
-          series: [{
-            name: 'Forecasting',
-            data: [2445000, 1980504, 7937959, <?= $hitungForecast; ?>]
-          }]
-        });
-      });
-    </script>
-    <br>
-    <div class="jumbotron" style="border-radius: 0;">
-      <h4>FORECASTING</h4>
-      <hr>
-      <table class="table table-bordered">
-        <thead>
-          <th>Bulan</th>
-          <th>Data Aktual</th>
-          <th>Forecast</th>
-          <th><i>E</i><i style="font-size: 8pt;">t</i></th>
-          <th><i>A</i><i style="font-size: 8pt;">t</i></th>
-          <th><i>M</i><i style="font-size: 8pt;">t</i></th>
-          <th><i>α</i><i style="font-size: 8pt;">t</i></th>
-        </thead>
-        <tbody>
-          <?php
-          for ($tb = 0; $tb < count($data); $tb++) {
-            echo "<tr>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <img src="<?= base_url('assets/logo mercu.png'); ?>" alt="" width="70" height="50" style="float: left; margin-top: 5px; margin-right:20px">
+  <h3>Statistik Raw Material Tahun 2020</h3>
+  <ol class="breadcrumb">
+    <li><a href="<?= base_url('dashboard'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+  <div class="box box-default">
+    <div class="container">
+      <h3 class="text-center">FORECAST DATA DENGAN METODE <i>EXPONENTIAL SMOOTHING</i></h3>
+      <div class="col-md-12">
+        <div id="forcase">
+        </div>
+        <br>
+        <script type="text/javascript">
+          $(function() {
+            Highcharts.chart('forcase', {
+              title: {
+                text: 'Forecasting Data Raw Material',
+                x: -20 //center
+              },
+              xAxis: {
+                categories: ['Agustus', 'September', 'Oktober', 'November']
+              },
+              yAxis: {
+                title: {
+                  text: 'Jumlah Quantity'
+                },
+                plotLines: [{
+                  value: 0,
+                  width: 1,
+                  color: '#808080'
+                }]
+              },
+              tooltip: {
+                valueSuffix: 'Kg'
+              },
+              legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+              },
+              series: [{
+                name: 'Forecasting',
+                data: [2445000, 1980504, 7937959, <?= $hitungForecast; ?>]
+              }]
+            });
+          });
+        </script>
+        <br>
+        <div class="jumbotron" style="border-radius: 0;">
+          <h4>FORECASTING</h4>
+          <hr>
+          <table class="table table-bordered">
+            <thead>
+              <th>Bulan</th>
+              <th>Data Aktual</th>
+              <th>Forecast</th>
+              <th><i>E</i><i style="font-size: 8pt;">t</i></th>
+              <th><i>A</i><i style="font-size: 8pt;">t</i></th>
+              <th><i>M</i><i style="font-size: 8pt;">t</i></th>
+              <th><i>α</i><i style="font-size: 8pt;">t</i></th>
+            </thead>
+            <tbody>
+              <?php
+              for ($tb = 0; $tb < count($data); $tb++) {
+                echo "<tr>
                   <td>" . $bulan[$tb] . "</td>
                   <td>" . total($data[$tb]) . "</td>
                   <td>" . total($hasilForecast[$tb]) . "</td>
@@ -128,49 +138,50 @@ array_push($ct, 0.00);
                   <td>" . total($mt[$tb]) . "</td>
                   <td>" . total($ct[$tb]) . "</td>
                   </tr>";
-          }
+              }
+              ?>
+            </tbody>
+          </table>
+          <?php
+          // Hitung MAD
+          $mad = array_sum($ea) / 4;
+
+          // Hitung MSE
+          $mse = array_sum($ea2) / 4;
+
+          // Hitung MAPE
+          $mape = array_sum($pe) / 4;
           ?>
-        </tbody>
-      </table>
-      <?php
-      // Hitung MAD
-      $mad = array_sum($ea) / 4;
-
-      // Hitung MSE
-      $mse = array_sum($ea2) / 4;
-
-      // Hitung MAPE
-      $mape = array_sum($pe) / 4;
-      var_dump($mape);
-      ?>
-      <h4>PERHITUNGAN KESALAHAN RAMALAN</h4>
-      <hr>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>MAD</th>
-            <th>MSE</th>
-            <th>MAPE</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><?= total($mad); ?></td>
-            <td><?= total($mse); ?></td>
-            <td><?= round($mape) . "%"; ?></td>
-          </tr>
-        </tbody>
-      </table>
+          <h4>PERHITUNGAN KESALAHAN RAMALAN</h4>
+          <hr>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>MAD</th>
+                <th>MSE</th>
+                <th>MAPE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><?= total($mad); ?></td>
+                <td><?= total($mse); ?></td>
+                <td><?= round($mape) . "%"; ?></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="jumbotron" style="text-align: justify; border-radius: 0; margin-top: 15px; padding: 40px;">
+          <p align="center">Keterangan</p>
+          <hr>
+          Berikut ini adalah peramalan jumlah quantity untuk 1 bulan kedepan berdasarkan data transaksi sebelumnya.
+          Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
+          digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= total($mad); ?>, MSE : <?= total($mse); ?> dan MAPE : <?= round($mape) . "%"; ?> yang berarti permalan data raw material
+          tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= round($mape) . "%"; ?>.
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-md-12">
-    <div class="jumbotron" style="text-align: justify; border-radius: 0; margin-top: 15px; padding: 40px;">
-      <p align="center">Keterangan</p>
-      <hr>
-      Berikut ini adalah peramalan jumlah quantity untuk 1 bulan kedepan berdasarkan data transaksi sebelumnya.
-      Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
-      digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= total($mad); ?>, MSE : <?= total($mse); ?> dan MAPE : <?= round($mape) . "%"; ?> yang berarti permalan data raw material
-      tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= round($mape) . "%"; ?>.
-    </div>
-  </div>
-</div>
+</section>

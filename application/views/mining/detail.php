@@ -20,19 +20,17 @@
             public $v;
             public $w;
             public $x;
-            public $y;
-            function __construct($v, $w, $x, $y)
+            function __construct($v, $w, $x)
             {
               $this->v = $v;
               $this->w = $w;
               $this->x = $x;
-              $this->y = $y;
             }
           }
 
           function distance($p1, $p2)
           {
-            return sqrt(pow(($p1->v - $p2->v), 2) + pow(($p1->w - $p2->w), 2) + pow(($p1->x - $p2->x), 2) + pow(($p1->y - $p2->y), 2));
+            return sqrt(pow(($p1->v - $p2->v), 2) + pow(($p1->w - $p2->w), 2) + pow(($p1->x - $p2->x), 2));
           }
 
           function dump($table, $centroid, $k)
@@ -44,7 +42,6 @@
                 <tr class="info">
                   <th>Item</th>
                   <th>Jenis Penangkapan</th>
-                  <th>Jenis Transakasi</th>
                   <th>Qty</th>
                   <?php
                   for ($i = 0; $i < $k; $i++)
@@ -59,23 +56,20 @@
                 ?>
                   <tr class="success">
                     <td>
-                      <?= $row->v; ?>
+                      <?= total($row->v); ?>
                     </td>
                     <td>
-                      <?= $row->w; ?>
+                      <?= total($row->w); ?>
                     </td>
                     <td>
-                      <?= $row->x; ?>
-                    </td>
-                    <td>
-                      <?= $row->y; ?>
+                      <?= total($row->x); ?>
                     </td>
                     <?php
                     $minValue = 999999;
                     $minID = 0;
                     for ($i = 0; $i < $k; $i++) {
                       $dist = distance($row, $centroid[$i]);
-                      echo "<td>" . round($dist) . "</td>";
+                      echo "<td>" . total($dist) . "</td>";
                       if ($minValue > $dist) {
                         $minID = $i;
                         $minValue = $dist;
@@ -123,24 +117,21 @@
                     $v = 0;
                     $w = 0;
                     $x = 0;
-                    $y = 0;
 
                     $c = 0;
                     foreach ($group[$i] as $set) {
                       $c++;
-                      echo "( " . round($set->v) . " , " . round($set->w) . " , " . round($set->x) . " , " . round($set->y) . " )<br/>";
+                      echo "( " . total($set->v) . " , " . total($set->w) . " , " . total($set->x) . " )<br/>";
                       $v += $set->v;
                       $w += $set->w;
                       $x += $set->x;
-                      $y += $set->y;
                     }
 
                     $v /= $c;
                     $w /= $c;
                     $x /= $c;
-                    $y /= $c;
 
-                    $centroid[$i] = new DataSet($v, $w, $x, $y);
+                    $centroid[$i] = new DataSet($v, $w, $x);
                     echo "</td>";
                   }
                   ?>
@@ -154,10 +145,10 @@
           if (isset($_REQUEST['data'])) {
             $var = $_REQUEST['data'];
           } else
-            $sql = "SELECT id_item, id_catch, id_jenis, qty FROM transaksi";
+            $sql = "SELECT id_item, id_catch, qty FROM transaksi";
           $result = mysqli_query($con, $sql);
           while ($r = mysqli_fetch_assoc($result)) {
-            $var1[] = array('v' => $r['id_item'], 'w' => $r['id_catch'], 'x' => $r['id_jenis'], 'y' => $r['qty']);
+            $var1[] = array('v' => $r['id_item'], 'w' => $r['id_catch'], 'x' => $r['qty']);
           }
           $var = json_encode($var1);
 
@@ -170,11 +161,11 @@
           $table = array();
 
           foreach ($obj as $row) {
-            $table[] = new DataSet($row->v, $row->w, $row->x, $row->y);
+            $table[] = new DataSet($row->v, $row->w, $row->x);
           }
           $centroid = array();
           for ($i = 0; $i < $k; $i++)
-            $centroid[] = new DataSet($table[$i]->v, $table[$i]->w, $table[$i]->x, $table[$i]->y);
+            $centroid[] = new DataSet($table[$i]->v, $table[$i]->w, $table[$i]->x);
           $iteration_limit = 20;
 
           for ($iteration = 0; $iteration < $iteration_limit; $iteration++) {
@@ -187,7 +178,7 @@
 
             $i = 0;
             foreach ($table as $row) {
-              $group[$cluster[$i]][] = new DataSet($row->v, $row->w, $row->x, $row->y);
+              $group[$cluster[$i]][] = new DataSet($row->v, $row->w, $row->x);
               $i++;
             }
             $new_centroid = dump_group($centroid, $group, $k);
@@ -198,7 +189,6 @@
             foreach ($new_centroid as $g) {
               if (
                 $centroid[$i]->v != $new_centroid[$i]->v || $centroid[$i]->w != $new_centroid[$i]->w || $centroid[$i]->x != $new_centroid[$i]->x
-                || $centroid[$i]->y != $new_centroid[$i]->y
               ) {
                 $flag = false;
                 break;
@@ -213,7 +203,7 @@
             // COPY NEW_CENTROID TO CENTROID
             $i = 0;
             foreach ($new_centroid as $g) {
-              $centroid[$i] = new DataSet($g->v, $g->w, $g->x, $g->y);
+              $centroid[$i] = new DataSet($g->v, $g->w, $g->x);
               $i++;
             }
 
@@ -231,3 +221,9 @@
     </div>
   </div>
 </section>
+<?php
+function total($total)
+{
+  $hasil = number_format($total, 2, ',', '.');
+  return $hasil;
+} ?>

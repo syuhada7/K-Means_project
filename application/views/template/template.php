@@ -217,13 +217,13 @@
       var nama_item = $(this).data('nama_item');
       var nama_kapal = $(this).data('nama_kapal');
       var nama_catch = $(this).data('nama_catch');
-      var stok = $(this).data('stok');
+      var qty = $(this).data('qty');
       // -----
       $('#id_transaksi').val(id_transaksi);
       $('#nama_item').val(nama_item);
       $('#nama_kapal').val(nama_kapal);
       $('#nama_catch').val(nama_catch);
-      $('#stok').val(stok);
+      $('#stok').val(qty);
     })
   })
 </script>
@@ -239,32 +239,7 @@
         type: 'column'
       },
       title: {
-        text: 'Item Raw Material Masuk'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Item Raw Material'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-  $(function() {
-    Highcharts.chart('total_keluar', {
-      data: {
-        table: 'jml_keluar'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Item Raw Material Keluar'
+        text: 'Item Raw Material'
       },
       yAxis: {
         allowDecimals: false,
@@ -295,31 +270,6 @@
         allowDecimals: false,
         title: {
           text: 'Metode'
-        }
-      },
-      tooltip: {
-        formatter: function() {
-          return '<b>' + this.series.name + '</b><br/>' +
-            this.point.y + ' ' + this.point.name;
-        }
-      }
-    });
-  });
-  $(function() {
-    Highcharts.chart('total_qty', {
-      data: {
-        table: 'jml_qty'
-      },
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: 'Jumlah Qty Item'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'Jumlah Qty'
         }
       },
       tooltip: {

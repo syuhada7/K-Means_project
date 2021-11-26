@@ -20,20 +20,18 @@
             public $w;
             public $x;
             public $y;
-            public $z;
-            function __construct($v, $w, $x, $y, $z)
+            function __construct($v, $w, $x, $y)
             {
               $this->v = $v;
               $this->w = $w;
               $this->x = $x;
               $this->y = $y;
-              $this->z = $z;
             }
           }
 
           function distance($p1, $p2)
           {
-            return sqrt(pow(($p1->v - $p2->v), 2) + pow(($p1->w - $p2->w), 2) + pow(($p1->x - $p2->x), 2) + pow(($p1->y - $p2->y), 2) + pow(($p1->z - $p2->z), 2));
+            return sqrt(pow(($p1->v - $p2->v), 2) + pow(($p1->w - $p2->w), 2) + pow(($p1->x - $p2->x), 2) + pow(($p1->y - $p2->y), 2));
           }
 
           function dump($table, $centroid, $k)
@@ -64,7 +62,6 @@
               $w = 0;
               $x = 0;
               $y = 0;
-              $z = 0;
 
               $c = 0;
               foreach ($group[$i] as $set) {
@@ -73,16 +70,14 @@
                 $w += $set->w;
                 $x += $set->x;
                 $y += $set->y;
-                $z += $set->z;
               }
 
               $v /= $c;
               $w /= $c;
               $x /= $c;
               $y /= $c;
-              $z /= $c;
 
-              $centroid[$i] = new DataSet($v, $w, $x, $y, $z);
+              $centroid[$i] = new DataSet($v, $w, $x, $y);
             }
 
             return $centroid;
@@ -91,10 +86,10 @@
           if (isset($_REQUEST['data'])) {
             $var = $_REQUEST['data'];
           } else
-            $sql = "SELECT id_item, id_catch, id_jenis, qty, id_kapal FROM transaksi";
+            $sql = "SELECT id_item, id_catch, qty, id_kapal FROM transaksi";
           $result = mysqli_query($con, $sql);
           while ($r = mysqli_fetch_assoc($result)) {
-            $var1[] = array('v' => $r['id_item'], 'w' => $r['id_catch'], 'x' => $r['id_jenis'], 'y' => $r['qty'], 'z' => $r['id_kapal']);
+            $var1[] = array('v' => $r['id_item'], 'w' => $r['id_catch'], 'x' => $r['qty'], 'y' => $r['id_kapal']);
           }
           $var = json_encode($var1);
 
@@ -107,12 +102,12 @@
 
           $table = array();
           foreach ($obj as $row) {
-            $table[] = new DataSet($row->v, $row->w, $row->x, $row->y, $row->z);
+            $table[] = new DataSet($row->v, $row->w, $row->x, $row->y);
           }
 
           $centroid = array();
           for ($i = 0; $i < $k; $i++)
-            $centroid[] = new DataSet($table[$i]->v, $table[$i]->w, $table[$i]->x, $table[$i]->y, $table[$i]->z);
+            $centroid[] = new DataSet($table[$i]->v, $table[$i]->w, $table[$i]->x, $table[$i]->y);
 
 
           $iteration_limit = 100;
@@ -128,7 +123,7 @@
 
             $i = 0;
             foreach ($table as $row) {
-              $group[$cluster[$i]][] = new DataSet($row->v, $row->w, $row->x, $row->y, $row->z);
+              $group[$cluster[$i]][] = new DataSet($row->v, $row->w, $row->x, $row->y);
               $i++;
             }
 
@@ -140,7 +135,7 @@
             foreach ($new_centroid as $g) {
               if (
                 $centroid[$i]->v != $new_centroid[$i]->v || $centroid[$i]->w != $new_centroid[$i]->w || $centroid[$i]->x != $new_centroid[$i]->x
-                || $centroid[$i]->y != $new_centroid[$i]->y || $centroid[$i]->z != $new_centroid[$i]->z
+                || $centroid[$i]->y != $new_centroid[$i]->y
               ) {
                 $flag = false;
                 break;
@@ -155,7 +150,7 @@
             // COPY NEW_CENTROID TO CENTROID
             $i = 0;
             foreach ($new_centroid as $g) {
-              $centroid[$i] = new DataSet($g->v, $g->w, $g->x, $g->y, $g->z);
+              $centroid[$i] = new DataSet($g->v, $g->w, $g->x, $g->y);
               $i++;
             }
           }
@@ -173,7 +168,6 @@
           for ($i = 0; $i < count($group); $i++) {
             $itemCount[$i] = array();
             $tangkapCount[$i] = array();
-            $kapalCount[$i] = array();
           ?>
             <div class="box box-default" style="border-radius: 0; overflow: scroll; height: 400px;">
               <table class="table table-hover table-bordered">
@@ -183,7 +177,6 @@
                   </tr>
                   <tr class="danger">
                     <th>Item</th>
-                    <th>Nama Kapal</th>
                     <th>Jenis Penangkapan</th>
                   </tr>
                 </thead>
@@ -191,7 +184,6 @@
                   <?php
                   $item = array();
                   $tangkap = array();
-                  $kapal = array();
                   foreach ($group[$i] as $var) {
                     $sqlitem = "SELECT nama_item FROM item WHERE id_item = $var->v";
                     $resitem = mysqli_query($con, $sqlitem);
@@ -203,24 +195,15 @@
                     while ($rtangkap = mysqli_fetch_assoc($restangkap)) {
                       $tangkap = $rtangkap;
                     }
-                    $sqlkapal = "SELECT nama_kapal FROM kapal WHERE id_kapal = $var->z";
-                    $reskapal = mysqli_query($con, $sqlkapal);
-                    while ($rkapal = mysqli_fetch_assoc($reskapal)) {
-                      $kapal = $rkapal;
-                    }
                     echo "<tr class='active'>
                         <td>" . $item['nama_item'] . "</td>
-                        <td>" . $kapal['nama_kapal'] . "</td>
                         <td>" . $tangkap['nama_catch'] . "</td>
                       </tr>";
                     array_push($itemCount[$i], $item['nama_item']);
-                    array_push($kapalCount[$i], $kapal['nama_kapal']);
                     array_push($tangkapCount[$i], $tangkap['nama_catch']);
                   }
                   $jmlitem[$i] = array_count_values($itemCount[$i]);
                   arsort($jmlitem[$i]);
-                  $jmlkapal[$i] = array_count_values($kapalCount[$i]);
-                  arsort($jmlkapal[$i]);
                   $jmltangkap[$i] = array_count_values($tangkapCount[$i]);
                   arsort($jmltangkap[$i]);
                   ?>
@@ -230,17 +213,15 @@
             <!-- Initialisasi Data -->
             <?php
             $tampilitem = array_values($jmlitem[$i]);
-            $tampilkapal = array_values($jmlkapal[$i]);
             $tampiltangkap = array_values($jmltangkap[$i]);
             $tnitem = array_keys($jmlitem[$i]);
-            $tnkapal = array_keys($jmlkapal[$i]);
             $tntangkap = array_keys($jmltangkap[$i]);
             ?>
             <div class="jumbotron" style="border-radius: 0;">
               <h3>TABEL HASIL ITERASI - Cluster <?= $i + 1; ?></h3>
               <hr>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <table class="table table-bordered">
                     <thead>
                       <tr class="success">
@@ -260,27 +241,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="col-md-4">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr class="success">
-                        <th>Nama Kapal</th>
-                        <th>Jumlah</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      for ($tkp = 0; $tkp < (count($tampilkapal) / count($tampilkapal) * 5); $tkp++) {
-                        echo "<tr class='info'>
-                          <td>" . $tnkapal[$tkp] . "</td>
-                          <td>" . $tampilkapal[$tkp] . "</td>
-                          </tr>";
-                      }
-                      ?>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <table class="table table-bordered">
                     <thead>
                       <tr class="success">

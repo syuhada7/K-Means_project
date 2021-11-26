@@ -12,8 +12,6 @@ class Dashboard extends CI_Controller
   public function index()
   {
     $data['title'] = 'Dashboard';
-    $data['jmlmsk'] = $this->Dashboard_model->tranMsk();
-    $data['jmlklr'] = $this->Dashboard_model->tranOut();
     $data['jmlkpl'] = $this->Dashboard_model->ikan();
     $data['db'] = $this->db->db_connect();
     $this->template->load('template/template', 'dashboard', $data);

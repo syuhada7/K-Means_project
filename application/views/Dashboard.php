@@ -14,31 +14,7 @@
     </div>
     <div class="box-body">
       <div class="row">
-        <div class="col-lg-4 col-xs-6">
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h4 align='center'><b> Jumlah Transaksi Masuk </b></h4>
-              <h3 align='center'><?= $jmlmsk; ?></h3>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-6">
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h4 align='center'><b>Jumlah Transaksi Keluar</b></h4>
-              <h3 align='center'><?= $jmlklr; ?></h3>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg">
           <div class="small-box bg-green">
             <div class="inner">
               <h4 align='center'><b>Jumlah QTY Raw Material</b></h4>
@@ -71,25 +47,6 @@
             <?php } ?>
           </tbody>
         </table>
-        <table id="jml_keluar" hidden="true">
-          <thead>
-            <tr>
-              <th>Nama Item</th>
-              <th>Jumlah Transaksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $sqlJumlkeluar = mysqli_query($db, "SELECT b.nama_item, COUNT(a.id_item) AS jumlah FROM transaksi a INNER JOIN item b ON (a.id_item = b.id_item) WHERE year(a.tanggal) = '2020' AND id_jenis='2' GROUP BY a.id_item ORDER BY jumlah DESC LIMIT 5");
-            while ($rkjs = mysqli_fetch_assoc($sqlJumlkeluar)) {
-            ?>
-              <tr>
-                <td><?= $rk['nama_item']; ?></td>
-                <td><?= $rk['jumlah']; ?></td>
-              </tr>
-            <?php } ?>
-          </tbody>
-        </table>
         <table id="jml_tangkap" hidden="true">
           <thead>
             <tr>
@@ -109,37 +66,12 @@
             <?php } ?>
           </tbody>
         </table>
-        <table id="jml_qty" hidden="true">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Jumlah Qty</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            $sqlJumGel = mysqli_query($db, "SELECT a.qty, b.nama_kapal FROM transaksi a INNER JOIN kapal b ON (a.id_kapal = b.id_kapal) WHERE a.id_jenis='1' AND year(a.tanggal) = '2020' GROUP BY a.id_kapal ORDER BY a.id_transaksi ASC");
-            while ($rjg = mysqli_fetch_assoc($sqlJumGel)) {
-            ?>
-              <tr>
-                <td><?= $rjg['nama_kapal']; ?></td>
-                <td><?= $rjg['qty']; ?></td>
-              </tr>
-            <?php } ?>
-          </tbody>
-        </table>
         <div class="grafik">
           <div class="col-md-6" style="margin-top: 30px;">
             <div id="total_masuk"></div>
           </div>
           <div class="col-md-6" style="margin-top: 30px;">
-            <div id="total_keluar"></div>
-          </div>
-          <div class="col-md-6" style="margin-top: 30px;">
             <div id="total_tangkap"></div>
-          </div>
-          <div class="col-md-6" style="margin-top: 30px;">
-            <div id="total_qty"></div>
           </div>
         </div>
       </div>

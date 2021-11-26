@@ -13,11 +13,11 @@
       <br>
       <div class="row">
         <div class="col-md-1">
-          <a href="<?= base_url('transaksi/inadd') ?>" class="btn btn-info"><i class="fa fa-plus"></i> In Raw</a>
+          <a href="<?= base_url('transaksi/inadd') ?>" class="btn btn-info"><i class="fa fa-plus"></i> Tambah</a>
         </div>
-        <div class="col-md-1">
+        <!-- <div class="col-md-1">
           <a href="<?= base_url('transaksi/outadd') ?>" class="btn btn-danger"><i class="fa fa-plus"></i> Out Raw</a>
-        </div>
+        </div> -->
         <br>
         <div class="col-md">
           <h3 style="text-align: center;"><i class="fa fa-shopping-basket"></i> DATA TRANSAKSI</h3>
@@ -35,7 +35,7 @@
               <th class="text-center">Nama Kapal</th>
               <th class="text-center">Jenis Penangkapan</th>
               <th class="text-center">Qty</th>
-              <th class="text-center">Jenis Transaksi</th>
+              <th class="text-center">Tanggal</th>
               <th class="text-center">Action</th>
             </tr>
           </thead>
@@ -49,7 +49,7 @@
                 <td><?= $tr->vessel; ?></td>
                 <td><?= $tr->metode; ?></td>
                 <td><?= $tr->qty; ?></td>
-                <td><?= $tr->js; ?></td>
+                <td><?= indo_date($tr->tanggal); ?></td>
                 <td>
                   <?= anchor('transaksi/ubah/' . $tr->id_transaksi, '<button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Update</button>'); ?> |
                   <a href="<?= site_url('transaksi/hapus/' . $tr->id_transaksi); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure delete <?= $tr->no_biling ?> ?');"><i class="fa fa-trash"></i> Delete</a>

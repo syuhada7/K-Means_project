@@ -28,15 +28,6 @@ class Transaksi extends CI_Controller
     $this->template->load('template/template', 'transaksi/add', $data);
   }
 
-  public function outadd()
-  {
-    $data['title'] = 'Out Transaksi';
-    $data['row'] = $this->Transaksi_model->getAll()->result();
-    $data['item'] = $this->Item_model->get()->result();
-    $data['biling'] = $this->Transaksi_model->billing();
-    $this->template->load('template/template', 'transaksi/out', $data);
-  }
-
   public function ubah($id)
   {
     $query = $this->Transaksi_model->getAll($id);
@@ -57,29 +48,11 @@ class Transaksi extends CI_Controller
   {
     $post = $this->input->post(null, TRUE);
     if (isset($_POST['submit_data'])) {
-      $this->Transaksi_model->outadd($post);
-      if ($this->db->affected_rows() > 0) {
-        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi/add') . "'</script>";
-      }
-      redirect('Transaksi/add');
-    } else if (isset($_POST['submit_data_and_close'])) {
-      $this->Transaksi_model->outadd($post);
-      if ($this->db->affected_rows() > 0) {
-        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi') . "'</script>";
-      }
-      redirect('Transaksi');
-    }
-  }
-
-  public function tambahout()
-  {
-    $post = $this->input->post(null, TRUE);
-    if (isset($_POST['submit_data'])) {
       $this->Transaksi_model->inadd($post);
       if ($this->db->affected_rows() > 0) {
-        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi/add') . "'</script>";
+        echo "<script>alert('Data Success Save !!') window.location='" . site_url('Transaksi/inadd') . "'</script>";
       }
-      redirect('Transaksi/add');
+      redirect('Transaksi/inadd');
     } else if (isset($_POST['submit_data_and_close'])) {
       $this->Transaksi_model->inadd($post);
       if ($this->db->affected_rows() > 0) {

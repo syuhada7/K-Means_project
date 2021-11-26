@@ -3,33 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dashboard_model extends CI_Model
 {
-  public function tranMsk()
-  {
-    $this->db->select_sum('id_jenis');
-    $this->db->where('id_jenis', 1);
-    $query = $this->db->get('transaksi');
-    if ($query->num_rows() > 0) {
-      return $query->row()->id_jenis;
-    } else {
-      return 0;
-    }
-  }
-
-  public function tranOut()
-  {
-    $this->db->select_sum('id_jenis');
-    $this->db->where('id_jenis', 2);
-    $query = $this->db->get('transaksi');
-    if ($query->num_rows() > 0) {
-      return $query->row()->id_jenis;
-    } else {
-      return 0;
-    }
-  }
-
   public function ikan()
   {
     $this->db->select_sum('qty');
+    $this->db->where('id_jenis', 1);
     $query = $this->db->get('transaksi');
     if ($query->num_rows() > 0) {
       return $query->row()->qty;
@@ -41,7 +18,7 @@ class Dashboard_model extends CI_Model
   public function bulan1()
   {
     $this->db->select_sum('qty');
-    $query = $this->db->get_where('transaksi', "id_jenis= 2 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 8");
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 8");
     if ($query->num_rows() > 0) {
       return $query->row()->qty;
     } else {
@@ -51,7 +28,7 @@ class Dashboard_model extends CI_Model
   public function bulan2()
   {
     $this->db->select_sum('qty');
-    $query = $this->db->get_where('transaksi', "id_jenis= 2 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 9");
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 9");
     if ($query->num_rows() > 0) {
       return $query->row()->qty;
     } else {
@@ -61,7 +38,7 @@ class Dashboard_model extends CI_Model
   public function bulan3()
   {
     $this->db->select_sum('qty');
-    $query = $this->db->get_where('transaksi', "id_jenis= 2 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 10");
+    $query = $this->db->get_where('transaksi', "id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 10");
     if ($query->num_rows() > 0) {
       return $query->row()->qty;
     } else {
@@ -72,7 +49,7 @@ class Dashboard_model extends CI_Model
   public function qty_alb()
   {
     $this->db->select_sum('qty');
-    $query = $this->db->get_where('transaksi', "id_item= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 9");
+    $query = $this->db->get_where('transaksi', "id_item= 1 AND id_jenis= 1 AND YEAR(tanggal)= 2020 AND MONTH(tanggal)= 8");
     if ($query->num_rows() > 0) {
       return $query->row()->qty;
     } else {

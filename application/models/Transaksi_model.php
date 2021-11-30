@@ -37,7 +37,8 @@ class Transaksi_model extends CI_Model
       'id_kapal'  => $post['kapal'],
       'id_catch'  => $post['tangkap'],
       'qty'       => $post['qty'],
-      'id_jenis'  => $post[1],
+      'stok'      => $post['qty'],
+      'id_jenis'  => 1,
       'tanggal'   => $post['tanggal']
     ];
     $this->db->insert('transaksi', $params);
@@ -52,7 +53,8 @@ class Transaksi_model extends CI_Model
       'id_kapal'     => $post['kapal'],
       'id_catch'     => $post['tangkap'],
       'qty'          => $post['qty'],
-      'id_jenis'     => $post[1],
+      'stok'         => $post['qty'],
+      'id_jenis'     => 1,
       'tanggal'      => $post['tanggal']
     ];
     $this->db->where('id_transaksi', $post['id']);

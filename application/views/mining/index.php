@@ -231,7 +231,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      for ($tp = 0; $tp < (count($tampilitem) / count($tampilitem) * 2); $tp++) {
+                      for ($tp = 0; $tp < (count($tampilitem) / count($tampilitem) * 3); $tp++) {
                         echo "<tr class='info'>
                           <td>" . $tnitem[$tp] . "</td>
                           <td>" . $tampilitem[$tp] . "</td>
@@ -251,7 +251,7 @@
                     </thead>
                     <tbody>
                       <?php
-                      for ($tj = 0; $tj < (count($tampiltangkap) / count($tampiltangkap) * 2); $tj++) {
+                      for ($tj = 0; $tj < (count($tampiltangkap) / count($tampiltangkap) * 3); $tj++) {
                         echo "<tr class='info'>
                           <td>" . $tntangkap[$tj] . "</td>
                           <td>" . $tampiltangkap[$tj] . "</td>

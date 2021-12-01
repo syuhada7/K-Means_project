@@ -1,7 +1,7 @@
 <?php
 
 $data = [0, $aug, $sep, $okt];
-$bulan = [0, 8, 9, 10, 11];
+$bulan = [0, 'Agustus', 'September', 'Oktober', 'November'];
 
 // Inisialisasi Awal
 $at = array(); // Nilai Kesalahan Absolut ke-t
@@ -19,7 +19,7 @@ $at[0] = 0.00;
 $mt[0] = 0.00;
 $ct[0] = 0.00;
 $ct[1] = 0.20;
-$beta = 0.50;
+$beta = 0.5;
 $et[0] = 0.00;
 
 for ($k = 0; $k < count($data); $k++) {
@@ -107,7 +107,10 @@ array_push($ct, 0.00);
               },
               series: [{
                 name: 'Forecasting',
-                data: [2445000, 1980504, 7937959, <?= $hitungForecast; ?>]
+                data: [4384074, 4438491, 7710136, <?= $hitungForecast; ?>]
+              }, {
+                name: 'Actual',
+                data: [<?= $aug; ?>, <?= $sep; ?>, <?= $okt; ?>]
               }]
             });
           });
@@ -166,7 +169,7 @@ array_push($ct, 0.00);
               <tr>
                 <td><?= total($mad); ?></td>
                 <td><?= total($mse); ?></td>
-                <td><?= round($mape) . "%"; ?></td>
+                <td><?= total($mape) . "%"; ?></td>
               </tr>
             </tbody>
           </table>
@@ -178,8 +181,8 @@ array_push($ct, 0.00);
           <hr>
           Berikut ini adalah peramalan jumlah quantity untuk 1 bulan kedepan berdasarkan data transaksi sebelumnya.
           Peramalan ini menggunakan metode <i>Exponential Smoothing</i> dengan ARRSES. Untuk mengukur kualitas ramalan
-          digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= total($mad); ?>, MSE : <?= total($mse); ?> dan MAPE : <?= round($mape) . "%"; ?> yang berarti permalan data raw material
-          tahunan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase keakuratannya <?= round($mape) . "%"; ?>.
+          digunakan metode MAD, MSE, dan MAPE yang menghasilkan nilai MAD : <?= total($mad); ?>, MSE : <?= total($mse); ?> dan MAPE : <?= total($mape) . "%"; ?> yang berarti permalan data raw material
+          bulanan PT. Pahala Bahari Nusantara menggunakan metode <i>Exponential Smoothing</i> adalah metode yang tepat karena Persentase errornya kurang dari 10%.
         </div>
       </div>
     </div>
